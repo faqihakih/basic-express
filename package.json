@@ -1,0 +1,23 @@
+{
+  "name": "basic-express",
+  "version": "1.0.0",
+  "description": "ini project latihan belajar express basic",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/faqihakih/basic-express.git"
+  },
+  "author": "Faqih Zada",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/faqihakih/basic-express/issues"
+  },
+  "homepage": "https://github.com/faqihakih/basic-express#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
