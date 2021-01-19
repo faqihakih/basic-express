@@ -2,6 +2,9 @@ const express = require('express'); // memanggil module express
 const app = express(); // mengunakan module express
 const port = 3000; // set port
 
+const route = require('./routers')
+app.use(route)
+
 app.listen(port, () => console.log(`Server listining at http://localhost:${port}`))
 
 //get() -> merupakan method HTTP GET, dan untuk method yang lain bisa disesuaikan misal post, put, dan delete
@@ -67,4 +70,26 @@ app.get('/page-*', (req, res) => {
 // yang ini aku masih binggung
 app.get('/post/:id?', (req, res) => {
     res.send('artikel ke-'+req.params.id)
+})
+// yang diatas tanda tanya (?) itu optional atau bisa ada bisa tidak
+
+//contoh hendle log dengan middleware
+
+const log = (req, res, next) => {
+    console.log(Date.now())
+    next()
+   }
+app.use(log)
+
+// kode deklarasi untuk routing
+app.use((req, res, next) => {
+    res.status(404).send("resource tidak ada")
+})
+
+// supa lebih user friendly
+app.use((req, res, next) => {
+    res.json({
+        status : "eror",
+        massage: "data tidak ditemukan"
+    })
 })
