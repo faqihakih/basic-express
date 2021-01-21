@@ -1,11 +1,17 @@
 const express = require('express'); // memanggil module express
 const app = express(); // mengunakan module express
+const bodyParser = require('body-parser'); // memanggil module body parser
 const port = 3000; // set port
 
-const route = require('./routers')
-app.use(route)
 
-app.listen(port, () => console.log(`Server listining at http://localhost:${port}`))
+
+app.use(bodyParser.urlencoded({extended:true})); // mengunakan middleware body parser
+app.use(bodyParser.json()) // parse JSON
+
+const route = require('./routers');
+app.use(route);
+
+app.listen(port, () => console.log(`Server listining at http://localhost:${port}`));
 
 //get() -> merupakan method HTTP GET, dan untuk method yang lain bisa disesuaikan misal post, put, dan delete
 app.get('/', (req, res) => res.send("Hello World!"))  // use send -> untuk mengirim semua jenis response, dimana argument bisa berisi konten serta bisa mengakhiri proses response
@@ -93,3 +99,17 @@ app.use((req, res, next) => {
         massage: "data tidak ditemukan"
     })
 })
+
+// menangani error
+// const errorHandling = (err, req, res, next) => {
+//     console.error(err.stack);
+//     res.status(500).send("terjadi kesalahan")
+// }
+
+const errorHandling = (err, req, res, next) => {
+    res.json({
+        status: "error",
+        massage: "terjadi kesalahan pada server"
+    })
+}
+app.use(errorHandling);
